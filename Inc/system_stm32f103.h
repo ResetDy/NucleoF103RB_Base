@@ -17,7 +17,10 @@ uint32_t getSystemState(void);
 void setSystemState(uint32_t flag);
 void clearSystemState(uint32_t clearFlag);
 uint32_t getSysTick(void);
+uint32_t getSysTickDetail(void);
+uint32_t getSysTime_us(void);
+void TimeMeasureStart(void);
+uint32_t TimeMeasureEnd(void);
 void Delay(uint32_t ms);
-
 
 #endif /* SYSTEM_STM32F103_H_ */

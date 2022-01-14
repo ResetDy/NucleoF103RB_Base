@@ -10,6 +10,7 @@
 
 __IO uint32_t sysTick;
 __IO uint32_t SystemStateFlag;
+__IO uint32_t TimeMeasure_Before;
 
 #ifdef __GNUC__
 int __io_putchar(int ch)
@@ -91,11 +92,45 @@ uint32_t getSysTick(void)
 	return sysTick;
 }
 
+uint32_t getSysTickDetail(void)
+{
+	uint32_t tickVal = SysTick->VAL;
+
+	return tickVal;
+}
+
+uint32_t getSysTime_us(void)
+{
+	uint32_t currentUs = getSysTickDetail();
+	uint32_t currentMs = getSysTick();	
+	uint32_t rtnValue;
+
+	rtnValue = (currentMs * 1000) + ((64000 - currentUs) >> 6);
+
+	return rtnValue;
+}
+
+void TimeMeasureStart(void)
+{
+	TimeMeasure_Before = getSysTime_us();
+}
+
+uint32_t TimeMeasureEnd(void)
+{
+	uint32_t curTime = getSysTime_us();
+	uint32_t rtnValue;
+	
+	rtnValue = curTime - TimeMeasure_Before;
+
+	return rtnValue;
+}
+
 void Delay(uint32_t ms)
 {
-	uint32_t startTick = getSysTick();
+	uint32_t startTick = getSysTime_us();
+	uint32_t target = startTick + ms * 1000;
 
-	while( startTick + ms >= getSysTick() );
+	while( target >= getSysTime_us() );
 }
 
 void SysTick_Handler(void)		// Config 값에 따라 인터럽트 주기를 변경 할 수 있음
