@@ -10,7 +10,12 @@
 
 #include <stdio.h>
 
+#define SYSTEM_STATE_BUTTON             0x00000001
+
 void SystemClockConfig(void);
+uint32_t getSystemState(void);
+void setSystemState(uint32_t flag);
+void clearSystemState(uint32_t clearFlag);
 uint32_t getSysTick(void);
 void Delay(uint32_t ms);
 

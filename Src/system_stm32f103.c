@@ -9,6 +9,7 @@
 #include "system_stm32f103.h"
 
 __IO uint32_t sysTick;
+__IO uint32_t SystemStateFlag;
 
 #ifdef __GNUC__
 int __io_putchar(int ch)
@@ -68,6 +69,21 @@ void SystemClockConfig(void)
 	RCC->CFGR |= RCC_CFGR_SW_1;
 	while( (RCC->CFGR & RCC_CFGR_SWS) == 0);
 
+}
+
+uint32_t getSystemState(void)
+{
+    return SystemStateFlag;
+}
+
+void setSystemState(uint32_t flag)
+{
+    SystemStateFlag |= flag;
+}
+
+void clearSystemState(uint32_t clearFlag)
+{
+    SystemStateFlag &= ~clearFlag;
 }
 
 uint32_t getSysTick(void)

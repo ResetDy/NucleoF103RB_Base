@@ -22,6 +22,7 @@ int main(void)
     SysTick_Config(64000);
 
     Init_GPIO();
+    EXTI_Init();
     Init_UART3(BPS_2000000);
     Init_UART2(BPS_2000000);
     Init_I2C2();
@@ -34,12 +35,14 @@ int main(void)
 
     while(1)
     {
+        /* Button */
+        if(getSystemState() & SYSTEM_STATE_BUTTON)
+        {
+            clearSystemState(SYSTEM_STATE_BUTTON);
+            printf("Button\r\n");
+        }
         DEBUGLED_Toggle();
         Delay(500);
-
-
-
-
     }
 
     return 0;

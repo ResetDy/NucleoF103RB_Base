@@ -51,6 +51,17 @@ void Init_GPIO(void)
     GPIOA->CRL |= (GPIO_CRL_MODE1_1 | GPIO_CRL_MODE1_0);
 }
 
+void EXTI_Init(void)
+{
+    AFIO->EXTICR[3] = AFIO_EXTICR4_EXTI13_PC;       // EXTI Mode
+    EXTI->IMR = EXTI_IMR_MR13;                      // IT Mode
+    EXTI->RTSR = EXTI_FTSR_TR13;                    // Falling Edge
+    EXTI->PR = 0x000FFFFF;                          // Interrupt Pending Bit Clear
+
+    NVIC_SetPriority(EXTI15_10_IRQn, 1);
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+}
+
 void DEBUGLED_On(void)
 {
     DEBUGLED_ON;
@@ -67,4 +78,13 @@ void DEBUGLED_Toggle(void)
         DEBUGLED_OFF;
     else
         DEBUGLED_ON;
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+    if(EXTI->PR & EXTI_PR_PR13)
+    {
+        EXTI->PR |= EXTI_PR_PR13;        // Flag Reset
+        setSystemState(SYSTEM_STATE_BUTTON);
+    }
 }

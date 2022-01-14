@@ -15,6 +15,7 @@
 #define DEBUGLED_OFF        (GPIOA->BRR |= GPIO_BRR_BR5)
 
 void Init_GPIO(void);
+void EXTI_Init(void);
 void DEBUGLED_On(void);
 void DEBUGLED_Off(void);
 void DEBUGLED_Toggle(void);
