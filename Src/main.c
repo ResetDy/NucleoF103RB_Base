@@ -13,6 +13,7 @@
 #include "system_stm32f103.h"
 #include "gpio.h"
 #include "uart.h"
+#include "i2c.h"
 
 int main(void)
 {
@@ -22,6 +23,7 @@ int main(void)
     Init_GPIO();
     Init_UART3(BPS_2000000);
     Init_UART2(BPS_2000000);
+    Init_I2C2();
 
     Delay(1);
 
