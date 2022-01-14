@@ -95,7 +95,7 @@ void Delay(uint32_t ms)
 {
 	uint32_t startTick = getSysTick();
 
-	while( startTick + ms > getSysTick() );
+	while( startTick + ms >= getSysTick() );
 }
 
 void SysTick_Handler(void)		// Config 값에 따라 인터럽트 주기를 변경 할 수 있음
