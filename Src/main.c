@@ -14,6 +14,7 @@
 #include "gpio.h"
 #include "uart.h"
 #include "i2c.h"
+#include "timer.h"
 
 int main(void)
 {
@@ -24,6 +25,8 @@ int main(void)
     Init_UART3(BPS_2000000);
     Init_UART2(BPS_2000000);
     Init_I2C2();
+    Init_TIMER1();
+    Init_TIMER2();
 
     Delay(1);
 
