@@ -28,7 +28,7 @@ void Init_UART2(uint16_t baud)
     USART2->CR1 = 0x0000;
     USART2->CR1 |= (USART_CR1_TE | USART_CR1_RE);
     USART2->BRR = baud << 4;
-	
+    
     USART2->CR1 |= USART_CR1_UE;
 }
 
@@ -40,7 +40,7 @@ void Init_UART3(uint16_t baud)
     USART3->CR1 = 0x0000;
     USART3->CR1 |= (USART_CR1_TE | USART_CR1_RE);
     USART3->BRR = baud << 4;
-	
+    
     USART3->CR1 |= USART_CR1_UE;
 }
 
