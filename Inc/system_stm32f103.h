@@ -10,7 +10,16 @@
 
 #include <stdio.h>
 
-#define SYSTEM_STATE_BUTTON             0x00000001
+#define SYSTEM_CLOCK_MHZ                        64
+#define SYSTICK_1SEC                            (SYSTEM_CLOCK_MHZ * 1000000)
+#define SYSTICK_100MS                           (SYSTEM_CLOCK_MHZ * 100000)
+#define SYSTICK_10MS                            (SYSTEM_CLOCK_MHZ * 10000)
+#define SYSTICK_1MS                             (SYSTEM_CLOCK_MHZ * 1000)
+#define SYSTICK_100US                           (SYSTEM_CLOCK_MHZ * 100)
+#define SYSTICK_10US                            (SYSTEM_CLOCK_MHZ * 10)
+#define SYSTICK_1US                             (SYSTEM_CLOCK_MHZ)
+
+#define SYSTEM_STATE_BUTTON                     0x00000001
 
 void SystemClockConfig(void);
 uint32_t getSystemState(void);
