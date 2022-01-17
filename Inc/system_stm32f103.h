@@ -22,5 +22,6 @@ uint32_t getSysTime_us(void);
 void TimeMeasureStart(void);
 uint32_t TimeMeasureEnd(void);
 void Delay(uint32_t ms);
+void Delay_us(uint16_t us);
 
 #endif /* SYSTEM_STM32F103_H_ */

@@ -133,6 +133,29 @@ void Delay(uint32_t ms)
     while( target >= getSysTime_us() );
 }
 
+// us 범위 : 1 ~ 1000 (개선필요)
+void Delay_us(uint16_t us)
+{
+    uint32_t startTick = getSysTickDetail();
+    uint32_t msTick = getSysTick();
+    uint32_t calUs = us * SYSTEM_CLOCK_MHZ;		            // 100us 입력이면 calus는 6400
+    uint32_t newTargetTick;
+    
+    if(startTick < calUs)	                                // 디카운트 값이 부족한 경우 (언더플로우가 발생하고 ms가 증가됨)
+    {
+        newTargetTick = SYSTICK_1MS - calUs + startTick;
+
+        while(msTick == getSysTick());                      // msTick이 증가되지 않으면 while
+        while(newTargetTick < getSysTickDetail());		    // 언더플로우 이후 재시작된 디카운트값이 계산된 값보다 크면 while
+    }
+    else
+    {
+        newTargetTick = startTick - calUs;
+
+        while( newTargetTick < getSysTickDetail() );		// 현재값이 목표값보다 크면 반복 (까주는거임)
+    }
+}
+
 void SysTick_Handler(void)		// Config 값에 따라 인터럽트 주기를 변경 할 수 있음
 {
     sysTick++;
