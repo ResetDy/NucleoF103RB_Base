@@ -20,6 +20,7 @@
 #define SYSTICK_1US                             (SYSTEM_CLOCK_MHZ)
 
 #define SYSTEM_STATE_BUTTON                     0x00000001
+#define SYSTEM_STATE_ADC                        0x00000010
 
 void SystemClockConfig(void);
 uint32_t getSystemState(void);

@@ -15,6 +15,8 @@
 #include "uart.h"
 #include "i2c.h"
 #include "timer.h"
+#include "adc.h"
+#include "dma.h"
 
 int main(void)
 {
@@ -28,6 +30,8 @@ int main(void)
     Init_I2C2();
     Init_TIMER1();
     Init_TIMER2();
+    Init_ADC();
+    Init_DMA();
 
     Delay(1);
 
@@ -35,11 +39,18 @@ int main(void)
 
     while(1)
     {
-        /* Button */
+        /* Button Push */
         if(getSystemState() & SYSTEM_STATE_BUTTON)
         {
             clearSystemState(SYSTEM_STATE_BUTTON);
             printf("Button\r\n");
+        }
+
+        /* ADC Complite */
+        if(getSystemState() & SYSTEM_STATE_ADC)
+        {
+            clearSystemState(SYSTEM_STATE_ADC);
+            printf("ADC Value = %d, %d\r\n", getADC(0), getADC(1));
         }
         DEBUGLED_Toggle();
         Delay(500);

@@ -49,6 +49,10 @@ void Init_GPIO(void)
     GPIOA->CRL &= ~GPIO_CRL_CNF1;
     GPIOA->CRL |= GPIO_CRL_CNF1_1;
     GPIOA->CRL |= (GPIO_CRL_MODE1_1 | GPIO_CRL_MODE1_0);
+
+    /* ADC 포트설정 (PA1, PA0) */
+    GPIOA->CRL &= ~(GPIO_CRL_CNF1 | GPIO_CRL_CNF0);
+    GPIOA->CRL &= ~(GPIO_CRL_MODE1 | GPIO_CRL_MODE0);
 }
 
 void EXTI_Init(void)
